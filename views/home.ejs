@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body{
+            background-image: url('https://i.pinimg.com/736x/68/cc/eb/68cceb81bfa18a92bc82a8640e86c997.jpg');
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-weight: bold;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            /* background-color: rgb(10, 10, 10); */
+            color: rgb(255, 255, 255);
+        }
+        h1{
+            color: rgb(3, 2, 0);
+            text-align: center;
+        }        
+        .Form, .Table {
+            width: 80%;
+            max-width: 500px;
+            border: 1px solid #1e0606;
+            padding: 20px;
+            background-color: #000000;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .Form{
+            width: 90%;
+            display: flex;
+        }
+        .Table{
+            text-align: center;  
+        }
+        .btn{
+            background-color: rgb(0, 0, 0);
+            font-weight: 600;
+            color: antiquewhite;
+        }
+        .Table {
+            margin-top: 20px;
+            border-collapse: collapse;
+            border: 1px solid #5b2929;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home page</title>
+</head>
+<body>
+    <h1>URL Shortner</h1>
+    <% if (locals.id) { %>
+     <p>URL Generated: https://localhost:8002/url/<%= id %></p>
+    <% } %>
+    <div>
+        <form class="Form" method = "POST" action="/url">
+            <label>Enter your original URL: </label>
+            <input type="text"
+             name="url"
+             placeholder="https://example.com"/>
+            <button class = "btn" type="Submit">Generate</button>
+        </form>
+    </div>
+    <div>
+        <% if (locals.urls) { %>
+         <table class="Table">
+            <thead>
+                <th>S.no</th>
+                <th>ShortID</th>
+                <th>Redirect</th>
+                <th>Clicks</th>
+            </thead>
+            <tbody>
+                <% urls.forEach((url , index) => { %>
+                    <tr>
+                    <td><%= index+1 %></td>    
+                    <td><%= url.shortId %></td>
+                    <td><%= url.redirectURL %></td> 
+                    <td><%= url.visitHistory.length %></td>  
+                </tr>          
+                <% }) %>
+            </tbody>
+         </table>
+        <% } %>
+    </div>
+</body>
+</html>
