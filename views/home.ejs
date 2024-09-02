@@ -14,18 +14,18 @@
             font-weight: bold;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             /* background-color: rgb(10, 10, 10); */
-            color: rgb(255, 255, 255);
+            color: rgb(7, 0, 0);
         }
         h1{
             color: rgb(3, 2, 0);
             text-align: center;
         }        
         .Form, .Table {
-            width: 80%;
+            width: 90%;
             max-width: 500px;
             border: 1px solid #1e0606;
             padding: 20px;
-            background-color: #000000;
+            background-color: #df9e5336;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
         .Form{
@@ -53,7 +53,7 @@
 <body>
     <h1>URL Shortner</h1>
     <% if (locals.id) { %>
-     <p>URL Generated: https://localhost:8002/url/<%= id %></p>
+     <p>URL Generated: http://localhost:8002/url/<%= id %></p>
     <% } %>
     <div>
         <form class="Form" method = "POST" action="/url">
