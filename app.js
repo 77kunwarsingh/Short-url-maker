@@ -1,20 +1,31 @@
+require("dotenv").config();
 const express = require("express");
-const urlRoute = require("./routes/url");
-const path = require('path');
-const staticRoute = require("./routes/staticRouter")
-const URL = require("./models/url");
 const { connectToMongoDb } = require("./connetion");
-const app = express();
-const port = 8002;
+const path = require('path');
+const URL = require("./models/url");
+const cookieParser = require("cookie-parser")
 
-connectToMongoDb("mongodb://localhost:27017/short-url").then(() =>
+const staticRoute = require("./routes/staticRouter")
+const urlRoute = require("./routes/url");
+const userRoute = require("./routes/user")
+const { checkForAuthentication,restrictTo } = require("./middlewares/auth")
+const app = express();
+const port = process.env.PORT || 8002;
+
+
+// const { connectToMongoDb } = require("./connetion");
+
+connectToMongoDb(process.env.MONGO_URL).then(() =>
   console.log("MongoDB connect successfully")
 );
 app.set("view engine" , "ejs");
 app.set('views', path.resolve('./views'))
-app.use("/" , staticRoute);
+
 app.use(express.json());
-app.use(express.urlencoded({extended: false}))
+app.use(express.urlencoded({extended: false}));
+app.use(cookieParser());
+app.use(checkForAuthentication);
+
 
 // app.get("/test", async(req,res)=>{
 //   const allUrls = await URL.find({});
@@ -23,7 +34,9 @@ app.use(express.urlencoded({extended: false}))
 //   });
 // })
 
-app.use("/url", urlRoute);
+app.use("/url", restrictTo(["NORMAL" , "ADMIN"]),urlRoute);
+app.use('/user' , userRoute)
+app.use("/" ,staticRoute); 
 app.get("/url/:shortId", async (req, res) => {
   const shortId = req.params.shortId;
   const entry = await URL.findOneAndUpdate(
