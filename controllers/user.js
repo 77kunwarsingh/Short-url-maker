@@ -21,9 +21,7 @@ async function handleUserLogin(req,res){
     })
     // const sessionId = uuidv4();
     const token = setUser(user);
-    res.cookie('token' , token , {
-        expires: new Date(Date.now() + 3600000),
-    }); 
+    res.cookie('token' , token); 
     // 2. Header sending tokens in JSON form (Authorization Bearer ... token)
     // res.json({token});
     return res.redirect("/");
