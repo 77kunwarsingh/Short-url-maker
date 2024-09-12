@@ -4,18 +4,104 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width , initial-scale=1.0">
     <title>Login</title>
+    <style>
+        h1{
+            text-align: center;
+            color: #f9f9f9;
+        }
+        body{
+            background-color: black;
+        }
+        form {
+  max-width: 400px;
+  margin: auto;
+  padding: 8em;
+  background: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+label {
+  margin-top: 1em;
+  font-weight: bold;
+  display: block;
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+  width: 100%;
+  padding: 0.5em;
+  margin: 0.5em 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+input[type="submit"]:hover {
+  background: #45a049;
+}
+.btn{
+  width: 200px;
+  margin-top: 2em;
+  margin-left: 7.3em;
+  font-weight: bold;
+  background: #3978cf;
+  color: white;
+  border: none;
+  padding: 0.7em 1em;
+  cursor: pointer;
+  border-radius: 4px;
+}
+#signin_btn{
+    display: flex;
+    justify-content:space-around
+}
+.btn1,.btn2{
+  background: #3978cf;
+  color: white;
+  margin-top: 4em;
+  padding: .6em;
+  font-weight: bold;
+  display: block;
+}
+#btn-signup{
+   width: 200px;
+  margin-top: 0.2em;
+  margin-left: 7.3em;
+  font-weight: bold;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  padding: 0.7em 1em;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+    </style>
 </head>
 <body>
     <h1>
-        Login
+        Login!!
     </h1>
     <form action="/user/login" method="post">
         <label>Email</label>
         <input type="text" required name="email"/>
+        <br>
         <label>Password</label>
         <input type="text" required name="password"/>
-
-        <button type="submit">Login</button>
+        <br>
+        <button class="btn" type="login">Login</button>
+        <center><label>Don't have an account?</label></center>
+        <button id="btn-signup" type="signup">Signup</button>
+        <div id="signin_btn">
+            <button class="btn1" type="google_signin">Sign in with Google</button>
+            <button  class="btn2" type="facebook_signin">Sign in with Facebook</button>
+        </div>
     </form>
+    <script>
+      document.getElementById('btn-signup').addEventListener('click', () => {
+      window.location.href = '/signup';
+});
+
+    </script>
 </body>
 </html>

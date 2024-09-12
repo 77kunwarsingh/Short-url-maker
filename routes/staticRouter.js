@@ -1,7 +1,7 @@
 const express = require('express');
+const router = express.Router();
 const URL = require('../models/url');
 const {restrictTo} = require("../middlewares/auth");
-const router = express.Router();
 
 router.get("/admin/urls",restrictTo(["ADMIN"]),async(req,res)=>{
     const allUrls = await URL.find({})
